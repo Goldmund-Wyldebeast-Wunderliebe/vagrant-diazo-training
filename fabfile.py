@@ -3,6 +3,8 @@
 from fabric.api import env, local, run, cd
 from utils import list_dir
 
+plone_installer_url = 'https://launchpad.net/plone/4.2/4.2.1/+download/Plone-4.2.1-UnifiedInstaller.tgz'
+gw20e_buildout = 'git://github.com/Goldmund-Wyldebeast-Wunderliebe/gw20e.buildout'
 
 def vagrant():
     # change from the default user to 'vagrant'
@@ -40,24 +42,25 @@ def install_plone():
 
     plone_dir = 'plone-4.2.1'
     if plone_dir not in list_dir():
-        run('wget https://launchpad.net/plone/4.2/4.2.1/+download/Plone-4.2.1-UnifiedInstaller.tgz')
-        run('tar -zxvf Plone-4.2.1-UnifiedInstaller.tgz')
+        run('wget {0}'.format(plone_installer_url))
+        run('tar -zxf Plone-4.2.1-UnifiedInstaller.tgz')
         run('rm Plone-4.2.1-UnifiedInstaller.tgz')
         run('mv Plone-4.2.1-UnifiedInstaller {0}'.format(plone_dir))
 
     with cd(plone_dir):
         run('./install.sh standalone')
 
-
 def install_plone_gw20e():
     
     plone_dir = 'gw20e.buildout'
     if plone_dir not in list_dir():
-        run('git clone git://github.com/Goldmund-Wyldebeast-Wunderliebe/gw20e.buildout')
+        run('git clone {0}'.format(gw20e_buildout))
 
     with cd(plone_dir):
+        run('wget http://cobain.gw20e.com/leong/local-diazo.cfg && mv local-diazo.cfg local.cfg')
         run('wget http://cobain.gw20e.com/leong/gw20e.buildout-eggs.tgz')
-        run('tar -zxvf gw20e.buildout-eggs.tgz')
+        run('tar -zxf gw20e.buildout-eggs.tgz && rm gw20e.buildout-eggs.tgz')
         run('virtualenv .')
-        run('./bin/python bootstrap.py -c buildout-dvl.cfg')
+        run('./bin/python bootstrap.py -c local.cfg')
         run('./bin/buildout -c buildout-dvl.cfg')
+        run('./bin/instance start')
