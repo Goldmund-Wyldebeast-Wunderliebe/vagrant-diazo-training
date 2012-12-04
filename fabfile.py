@@ -5,6 +5,8 @@ from utils import list_dir
 
 plone_installer_url = 'https://launchpad.net/plone/4.2/4.2.1/+download/Plone-4.2.1-UnifiedInstaller.tgz'
 gw20e_buildout = 'git://github.com/Goldmund-Wyldebeast-Wunderliebe/gw20e.buildout'
+diazo_plone = 'git://github.com/Goldmund-Wyldebeast-Wunderliebe/diazo-training-plone.git'
+
 
 def vagrant():
     # change from the default user to 'vagrant'
@@ -50,6 +52,7 @@ def install_plone():
     with cd(plone_dir):
         run('./install.sh standalone')
 
+
 def install_plone_gw20e():
     
     plone_dir = 'gw20e.buildout'
@@ -57,10 +60,14 @@ def install_plone_gw20e():
         run('git clone {0}'.format(gw20e_buildout))
 
     with cd(plone_dir):
-        run('wget http://cobain.gw20e.com/leong/local-diazo.cfg && mv local-diazo.cfg local.cfg')
+        # First get prerequisites
+        run('git clone {0} diazo'.format(diazo_plone))
+        run('wget http://cobain.gw20e.com/leong/local-diazo.cfg -O local.cfg')
         run('wget http://cobain.gw20e.com/leong/gw20e.buildout-eggs.tgz')
         run('tar -zxf gw20e.buildout-eggs.tgz && rm gw20e.buildout-eggs.tgz')
+        # Set-up buildout
         run('virtualenv .')
         run('./bin/python bootstrap.py -c local.cfg')
-        run('./bin/buildout -c buildout-dvl.cfg')
+        run('./bin/buildout -c diazo/local.cfg')
+        run('./bin/instance run diazo/structure.py')
         run('./bin/instance start')
