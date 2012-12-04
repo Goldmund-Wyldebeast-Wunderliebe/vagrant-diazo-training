@@ -55,7 +55,7 @@ def install_plone():
 
 def install_plone_gw20e():
     
-    plone_dir = 'gw20e.buildout'
+    plone_dir = 'plone'
     if plone_dir not in list_dir():
         run('git clone {0}'.format(gw20e_buildout))
 
