@@ -50,8 +50,6 @@ def install_plone():
 
     with cd(plone_dir):
         # Get prerequisites
-        if 'training' not in list_dir():
-            run('git clone {0} training'.format(diazo_plone))
         run('wget http://cobain.gw20e.com/leong/plone-4.3a-eggs.tgz')
         run('tar -zxf plone-4.3a-eggs.tgz && rm plone-4.3a-eggs.tgz')
 
@@ -59,7 +57,6 @@ def install_plone():
         run('virtualenv .')
         run('./bin/python bootstrap.py')
         run('./bin/buildout')
-        run('./bin/instance run training/structure.py')
         run('./bin/instance start')
 
 def install_django():
