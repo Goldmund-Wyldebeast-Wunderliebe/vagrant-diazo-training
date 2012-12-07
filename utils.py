@@ -9,3 +9,7 @@ def list_dir(dir_=None):
     print files
     return files
 
+def add_cronjob(cmd):
+    """ Add cronjob to current user"""
+    run('echo "{0}" >> /tmp/crondump'.format(cmd))
+    run('crontab /tmp/crondump')

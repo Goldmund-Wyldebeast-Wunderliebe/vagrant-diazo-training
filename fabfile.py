@@ -1,7 +1,7 @@
 """ Vagrant set-up for Diazo traning """
 
 from fabric.api import env, local, run, cd
-from utils import list_dir
+from utils import list_dir, add_cronjob
 
 plone_buildout = 'https://github.com/kcleong/buildout'
 diazo_plone = 'git://github.com/Goldmund-Wyldebeast-Wunderliebe/diazo-training-plone.git'
@@ -33,6 +33,7 @@ def upgrade():
 def install_base():
     run('sudo apt-get -y install build-essential')
     run('sudo apt-get -y install python-dev')
+    run('sudo apt-get -y install python-imaging')
     run('sudo apt-get -y install python-virtualenv')
     run('sudo apt-get -y install libjpeg-dev')
     run('sudo apt-get -y install libxslt1-dev')
@@ -49,15 +50,25 @@ def install_plone():
         run('git clone {0} {1}'.format(plone_buildout, plone_dir))
 
     with cd(plone_dir):
+        run('git checkout diazo-training')
+
         # Get prerequisites
-        run('wget http://cobain.gw20e.com/leong/plone-4.3a-eggs.tgz')
-        run('tar -zxf plone-4.3a-eggs.tgz && rm plone-4.3a-eggs.tgz')
+        run('wget http://cobain.gw20e.com/leong/gw20e.buildout-eggs.tgz')
+        run('tar -zxf gw20e.buildout-eggs.tgz')
+
+        run('wget http://cobain.gw20e.com/leong/training-zodb.tgz')
+        run('tar -zxf training-zodb.tgz')
+        run('mv filestorage var && mv blobstorage var')
 
         # Set-up buildout
         run('virtualenv .')
         run('./bin/python bootstrap.py')
         run('./bin/buildout')
         run('./bin/instance start')
+        add_cronjob('@reboot ~/plone/bin/instance start')
+
+def cron():
+    import pdb; pdb.set_trace()
 
 def install_django():
     django_dir = 'django'
