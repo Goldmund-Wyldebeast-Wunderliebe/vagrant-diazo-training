@@ -53,8 +53,8 @@ def install_plone():
         run('git checkout diazo-training')
 
         # Get prerequisites
-        run('wget http://cobain.gw20e.com/leong/gw20e.buildout-eggs.tgz')
-        run('tar -zxf gw20e.buildout-eggs.tgz')
+        #run('wget http://cobain.gw20e.com/leong/gw20e.buildout-eggs.tgz')
+        #run('tar -zxf gw20e.buildout-eggs.tgz')
 
         run('wget http://cobain.gw20e.com/leong/training-zodb.tgz')
         run('tar -zxf training-zodb.tgz')

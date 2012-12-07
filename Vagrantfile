@@ -38,10 +38,7 @@ Vagrant::Config.run do |config|
   # folder, and the third is the path on the host to the actual folder.
   config.vm.share_folder "v-data", "/vagrant_data", "../data"
 
-  #config.vm.provision Fabric
-  config.vm.provision Vagrant::Provisioners::Fabric do |fabric|
-    fabric.add_task('fab vagrant init')
-  end
+  config.vm.provision :shell, :path => "provision.sh"
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
