@@ -33,7 +33,7 @@ First create a directory where you want to to the training in
 
 Download a clean virtual machine (Ubuntu 12.04 Precise Pangolin 64bit). It will be downloaded and made available to the vagrant-command as 'precise64'. It serves as a basis for your virtual machines and can be reused as often as you like.
 
- $ vagrant box add base http://files.vagrantup.com/precise64.box
+ $ vagrant box add base http://files.vagrantup.com/lucid32.box
 
 Setup Vagrant to automatically install the current guest-additions
 
