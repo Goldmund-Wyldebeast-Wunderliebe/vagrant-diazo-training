@@ -19,9 +19,9 @@ sudo -u vagrant bash <<EOF
 	cd plone
 	git checkout diazo-training
 
-    if [ ! -f "gw20e.buildout-eggs.tgz" ]; then
-		wget --quiet http://cobain.gw20e.com/leong/gw20e.buildout-eggs.tgz
-		tar -zxf gw20e.buildout-eggs.tgz
+    if [ ! -f "plone-4.2.1-eggs.tgz" ]; then
+		wget --quiet http://cobain.gw20e.com/leong/plone-4.2.1-eggs.tgz
+		tar -zxf plone-4.2.1-eggs.tgz
 	fi
 	
 	if [ ! -f "training-zodb.tgz" ]; then
