@@ -1,41 +1,46 @@
-sudo apt-get update
-sudo apt-get -y upgrade
+apt-get update
+apt-get -y upgrade
 
-sudo apt-get -y install build-essential
-sudo apt-get -y install python-dev
-sudo apt-get -y install python-imaging
-sudo apt-get -y install python-virtualenv
-sudo apt-get -y install libjpeg-dev
-sudo apt-get -y install libxslt1-dev
-sudo apt-get -y install libxml2-dev
-sudo apt-get -y install git-core
-sudo apt-get -y install vim
+apt-get -y install build-essential
+apt-get -y install python-dev
+apt-get -y install python-imaging
+apt-get -y install python-virtualenv
+apt-get -y install libjpeg-dev
+apt-get -y install libxslt1-dev
+apt-get -y install libxml2-dev
+apt-get -y install git-core
+apt-get -y install vim
 
-su - vagrant 
-git clone https://github.com/kcleong/buildout plone
-cd plone
-git checkout diazo-training
+sudo -u vagrant bash <<EOF
+    cd /home/vagrant
+    if [ ! -d "/home/vagrant/plone" ]; then
+		git clone https://github.com/kcleong/buildout plone
+	fi
+	cd plone
+	git checkout diazo-training
 
-wget http://cobain.gw20e.com/leong/gw20e.buildout-eggs.tgz
-tar -zxf gw20e.buildout-eggs.tgz
+    if [ ! -f "gw20e.buildout-eggs.tgz" ]; then
+		wget http://cobain.gw20e.com/leong/gw20e.buildout-eggs.tgz
+		tar -zxf gw20e.buildout-eggs.tgz
+	fi
 
-wget http://cobain.gw20e.com/leong/training-zodb.tgz
-tar -zxf training-zodb.tgz
-mv filestorage var && mv blobstorage var
+	
+	if [ ! -f "gw20e.buildout-eggs.tgz" ]; then
+		wget http://cobain.gw20e.com/leong/training-zodb.tgz
+		tar -zxf training-zodb.tgz
+		mv filestorage var && mv blobstorage var
+	fi
 
-virtualenv . 
-git checkout diazo-training
+	if [ ! -f "./bin/python" ]; then
+		virtualenv .
+	fi
+	 
+	./bin/python bootstrap.py
+	./bin/buildout
 
-#wget http://cobain.gw20e.com/leong/gw20e.buildout-eggs.tgz
-#tar -zxf gw20e.buildout-eggs.tgz
-
-wget http://cobain.gw20e.com/leong/training-zodb.tgz
-tar -zxf training-zodb.tgz
-mv filestorage var && mv blobstorage var
-
-virtualenv . 
-./bin/python bootstrap.py
-./bin/buildout
-
-cd ~/
-git clone git://github.com/Goldmund-Wyldebeast-Wunderliebe/diazo-training-django.git django
+	cd /home/vagrant
+	if [ -d "/home/vagrant/django" ]; then
+		git clone git://github.com/Goldmund-Wyldebeast-Wunderliebe/diazo-training-django.git django
+	fi
+EOF
+exit 0
