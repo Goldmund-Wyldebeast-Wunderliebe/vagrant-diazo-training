@@ -9,16 +9,6 @@ We rely on Vagrant to give the same development-environment to everyone.
 
 You should do these steps before you come to Amsterdam to find out if they work and to not clog up the wireless there. Mail us if you encounter any problem!
 
-
-Install VirtualBox 4.1.22
--------------------------
-
-(Mac-User have to install 4.1.23 since Mac OS X 10.8.2 had a problem with 4.1.22)
-
-Vagrant depends on Oracle’s VirtualBox to create virtual environments. Here is a link directly to the download page:https://www.virtualbox.org/wiki/Download_Old_Builds_4_1
-VirtualBox 4.2.x is not yet supported by Vagrant.
-
-
 Install and configure Vagrant
 -----------------------------
 
@@ -31,7 +21,7 @@ First create a directory where you want to to the training in
  $ mkdir training
  $ cd training
 
-Download a clean virtual machine (Ubuntu 12.04 Precise Pangolin 64bit). It will be downloaded and made available to the vagrant-command as 'precise64'. It serves as a basis for your virtual machines and can be reused as often as you like.
+Download a clean virtual machine (Ubuntu 10.04 Lucid Lynx 32bit). It serves as a basis for your virtual machines and can be reused as often as you like.
 
  $ vagrant box add base http://files.vagrantup.com/lucid32.box
 
