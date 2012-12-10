@@ -20,14 +20,14 @@ sudo -u vagrant bash <<EOF
 	git checkout diazo-training
 
     if [ ! -f "gw20e.buildout-eggs.tgz" ]; then
-		wget http://cobain.gw20e.com/leong/gw20e.buildout-eggs.tgz
+		wget --quiet http://cobain.gw20e.com/leong/gw20e.buildout-eggs.tgz
 		tar -zxf gw20e.buildout-eggs.tgz
 	fi
-
 	
-	if [ ! -f "gw20e.buildout-eggs.tgz" ]; then
-		wget http://cobain.gw20e.com/leong/training-zodb.tgz
+	if [ ! -f "training-zodb.tgz" ]; then
+		wget --quiet http://cobain.gw20e.com/leong/training-zodb.tgz
 		tar -zxf training-zodb.tgz
+		rm -r var/filestorage var/blobstorage 
 		mv filestorage var && mv blobstorage var
 	fi
 
