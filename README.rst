@@ -5,14 +5,14 @@ Here are the instructions for setting up the virtual machine that we will work o
 Instruction on installing Vagrant for the Training
 ================================================
 
-We rely on Vagrant to give the same development-environment to everyone.
+We rely on VirtualBox with Vagrant to give the same development-environment to everyone.
 
 You should do these steps before you come to Amsterdam to find out if they work and to not clog up the wireless there. Mail us if you encounter any problem!
 
 Install and configure Vagrant
 -----------------------------
 
-Get the latest version from http://downloads.vagrantup.com for your operating system and install it.
+Get the latest version of https://www.virtualbox.org and http://downloads.vagrantup.com for your operating system and install it.
 
 Now your system has a command 'vagrant' that you can run in the terminal.
 
@@ -43,7 +43,7 @@ If you have the feeling that something has gone wrong and the installation has n
 
 In case everything went ok, you can now login to the VM
 
- $ vagnant ssh
+ $ vagrant ssh
 
 If you use Windows you'll have to login via putty (Install putty and follow the instructions her: http://vagrantup.com/v1/docs/getting-started/ssh.html)
 
